@@ -297,6 +297,9 @@ overflow-checks = true
 
 [workspace.dependencies]
 # reth
+grandine = { git = "https://github.com/AlexShukel/grandine", branch = "feature/embed-grandine-into-reth", package = "grandine", features = [
+    "default-networks",
+] }
 op-reth = { path = "crates/optimism/bin" }
 reth = { path = "bin/reth" }
 reth-auto-seal-consensus = { path = "crates/consensus/auto-seal" }
