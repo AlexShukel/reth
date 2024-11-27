@@ -296,10 +296,24 @@ codegen-units = 1
 overflow-checks = true
 
 [workspace.dependencies]
-# reth
-grandine = { git = "https://github.com/AlexShukel/grandine", branch = "feature/embed-grandine-into-reth", package = "grandine", features = [
-    "default-networks",
+# grandine
+grandine-runtime = { path = "../grandine/runtime", package = "runtime", features = [
+    "network-holesky",
 ] }
+grandine-directories = { path = "../grandine/directories", package = "directories" }
+grandine-grandine_version = { path = "../grandine/grandine_version", package = "grandine_version" }
+grandine-validator = { path = "../grandine/validator", package = "validator" }
+grandine-fork_choice_control = { path = "../grandine/fork_choice_control", package = "fork_choice_control" }
+grandine-fork_choice_store = { path = "../grandine/fork_choice_store", package = "fork_choice_store" }
+grandine-eth1_api = { path = "../grandine/eth1_api", package = "eth1_api" }
+grandine-signer = { path = "../grandine/signer", package = "signer" }
+grandine-slashing_protection = { path = "../grandine/slashing_protection", package = "slashing_protection" }
+grandine-http_api = { path = "../grandine/http_api", package = "http_api" }
+grandine-slasher = { path = "../grandine/slasher", package = "slasher" }
+grandine-types = { path = "../grandine/types", package = "types" }
+anyhow = { version = '1', features = ['backtrace'] }
+
+# reth
 op-reth = { path = "crates/optimism/bin" }
 reth = { path = "bin/reth" }
 reth-auto-seal-consensus = { path = "crates/consensus/auto-seal" }

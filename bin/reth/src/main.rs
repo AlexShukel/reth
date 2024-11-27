@@ -4,7 +4,6 @@
 static ALLOC: reth_cli_util::allocator::Allocator = reth_cli_util::allocator::new_allocator();
 
 use clap::{Args, Parser};
-use grandine;
 use reth::cli::Cli;
 use reth_ethereum_cli::chainspec::EthereumChainSpecParser;
 use reth_node_builder::{
@@ -54,8 +53,6 @@ impl Default for EngineArgs {
 }
 
 fn main() {
-    // TODO: Run the grandine CL
-
     reth_cli_util::sigsegv_handler::install();
 
     // Enable backtraces unless a RUST_BACKTRACE value has already been explicitly provided.

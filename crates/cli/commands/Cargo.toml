@@ -10,6 +10,23 @@ repository.workspace = true
 [lints]
 
 [dependencies]
+# grandine
+grandine-runtime = { workspace = true }
+grandine-directories = { workspace = true }
+grandine-grandine_version = { workspace = true }
+grandine-validator = { workspace = true }
+grandine-fork_choice_control = { workspace = true }
+grandine-fork_choice_store = { workspace = true }
+grandine-eth1_api = { workspace = true }
+grandine-signer = { workspace = true }
+grandine-slashing_protection = { workspace = true }
+grandine-http_api = { workspace = true }
+grandine-slasher = { workspace = true }
+grandine-types = { workspace = true }
+anyhow = { workspace = true }
+thiserror = { workspace = true }
+reqwest = { workspace = true }
+
 # reth
 reth-beacon-consensus.workspace = true
 reth-chainspec.workspace = true
@@ -67,9 +84,9 @@ serde_json.workspace = true
 tracing.workspace = true
 backon.workspace = true
 secp256k1 = { workspace = true, features = [
-    "global-context",
-    "rand-std",
-    "recovery",
+	"global-context",
+	"rand-std",
+	"recovery",
 ] }
 
 # io
@@ -80,7 +97,7 @@ toml = { workspace = true, features = ["display"] }
 comfy-table = "7.0"
 crossterm = "0.28.0"
 ratatui = { version = "0.28", default-features = false, features = [
-    "crossterm",
+	"crossterm",
 ] }
 
 # reth test-vectors
@@ -111,5 +128,5 @@ arbitrary = [
 	"reth-codecs?/arbitrary",
 	"reth-prune-types?/arbitrary",
 	"reth-stages-types?/arbitrary",
-	"reth-trie-common?/arbitrary"
+	"reth-trie-common?/arbitrary",
 ]

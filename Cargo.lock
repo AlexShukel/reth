@@ -127,14 +127,6 @@ dependencies = [
 ]
 
 [[package]]
-name = "allocator"
-version = "0.0.0"
-source = "git+https://github.com/AlexShukel/grandine?branch=feature/embed-grandine-into-reth#e00b90cca08179baf781ffb7f0d2b348ae045675"
-dependencies = [
- "tikv-jemallocator",
-]
-
-[[package]]
 name = "allocator-api2"
 version = "0.2.20"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -946,7 +938,6 @@ checksum = "69f7f8c3906b62b754cd5326047894316021dcfe5a194c8ea52bdd94934a3457"
 [[package]]
 name = "arithmetic"
 version = "0.0.0"
-source = "git+https://github.com/AlexShukel/grandine?branch=feature/embed-grandine-into-reth#e00b90cca08179baf781ffb7f0d2b348ae045675"
 dependencies = [
  "easy-ext",
  "typenum",
@@ -1292,7 +1283,6 @@ checksum = "1505bd5d3d116872e7271a6d4e16d81d0c8570876c8de68093a09ac269d8aac0"
 [[package]]
 name = "attestation_verifier"
 version = "0.1.0"
-source = "git+https://github.com/AlexShukel/grandine?branch=feature/embed-grandine-into-reth#e00b90cca08179baf781ffb7f0d2b348ae045675"
 dependencies = [
  "anyhow",
  "dedicated_executor",
@@ -1504,7 +1494,6 @@ checksum = "230c5f1ca6a325a32553f8640d31ac9b49f2411e901e427570154868b46da4f7"
 [[package]]
 name = "binary_utils"
 version = "0.0.0"
-source = "git+https://github.com/AlexShukel/grandine?branch=feature/embed-grandine-into-reth#e00b90cca08179baf781ffb7f0d2b348ae045675"
 dependencies = [
  "anyhow",
  "chrono",
@@ -1679,7 +1668,6 @@ dependencies = [
 [[package]]
 name = "block_producer"
 version = "0.1.0"
-source = "git+https://github.com/AlexShukel/grandine?branch=feature/embed-grandine-into-reth#e00b90cca08179baf781ffb7f0d2b348ae045675"
 dependencies = [
  "anyhow",
  "arithmetic",
@@ -1719,7 +1707,6 @@ dependencies = [
 [[package]]
 name = "bls"
 version = "0.0.0"
-source = "git+https://github.com/AlexShukel/grandine?branch=feature/embed-grandine-into-reth#e00b90cca08179baf781ffb7f0d2b348ae045675"
 dependencies = [
  "blst",
  "derivative",
@@ -1956,7 +1943,6 @@ dependencies = [
 [[package]]
 name = "builder_api"
 version = "0.0.0"
-source = "git+https://github.com/AlexShukel/grandine?branch=feature/embed-grandine-into-reth#e00b90cca08179baf781ffb7f0d2b348ae045675"
 dependencies = [
  "anyhow",
  "bls",
@@ -2311,7 +2297,6 @@ checksum = "afb84c814227b90d6895e01398aee0d8033c00e7466aca416fb6a8e0eb19d8a7"
 [[package]]
 name = "clock"
 version = "0.0.0"
-source = "git+https://github.com/AlexShukel/grandine?branch=feature/embed-grandine-into-reth#e00b90cca08179baf781ffb7f0d2b348ae045675"
 dependencies = [
  "anyhow",
  "arithmetic",
@@ -2958,7 +2943,6 @@ dependencies = [
 [[package]]
 name = "database"
 version = "0.0.0"
-source = "git+https://github.com/AlexShukel/grandine?branch=feature/embed-grandine-into-reth#e00b90cca08179baf781ffb7f0d2b348ae045675"
 dependencies = [
  "anyhow",
  "bytesize",
@@ -2992,7 +2976,6 @@ dependencies = [
 [[package]]
 name = "dedicated_executor"
 version = "0.1.0"
-source = "git+https://github.com/AlexShukel/grandine?branch=feature/embed-grandine-into-reth#e00b90cca08179baf781ffb7f0d2b348ae045675"
 dependencies = [
  "futures",
  "libc",
@@ -3029,7 +3012,6 @@ dependencies = [
 [[package]]
 name = "deposit_tree"
 version = "0.0.0"
-source = "git+https://github.com/AlexShukel/grandine?branch=feature/embed-grandine-into-reth#e00b90cca08179baf781ffb7f0d2b348ae045675"
 dependencies = [
  "anyhow",
  "features",
@@ -3162,7 +3144,6 @@ dependencies = [
 [[package]]
 name = "directories"
 version = "0.1.0"
-source = "git+https://github.com/AlexShukel/grandine?branch=feature/embed-grandine-into-reth#e00b90cca08179baf781ffb7f0d2b348ae045675"
 dependencies = [
  "anyhow",
  "dirs",
@@ -3296,7 +3277,6 @@ checksum = "aac81fa3e28d21450aa4d2ac065992ba96a1d7303efbce51a95f4fd175b67562"
 [[package]]
 name = "doppelganger_protection"
 version = "0.1.0"
-source = "git+https://github.com/AlexShukel/grandine?branch=feature/embed-grandine-into-reth#e00b90cca08179baf781ffb7f0d2b348ae045675"
 dependencies = [
  "anyhow",
  "arc-swap",
@@ -3430,7 +3410,6 @@ dependencies = [
 [[package]]
 name = "eip_2335"
 version = "0.0.0"
-source = "git+https://github.com/AlexShukel/grandine?branch=feature/embed-grandine-into-reth#e00b90cca08179baf781ffb7f0d2b348ae045675"
 dependencies = [
  "aes 0.8.4",
  "anyhow",
@@ -3455,7 +3434,6 @@ dependencies = [
 [[package]]
 name = "eip_7594"
 version = "0.0.0"
-source = "git+https://github.com/AlexShukel/grandine?branch=feature/embed-grandine-into-reth#e00b90cca08179baf781ffb7f0d2b348ae045675"
 dependencies = [
  "num-traits",
  "sha2 0.10.8",
@@ -3681,7 +3659,6 @@ dependencies = [
 [[package]]
 name = "eth1"
 version = "0.0.0"
-source = "git+https://github.com/AlexShukel/grandine?branch=feature/embed-grandine-into-reth#e00b90cca08179baf781ffb7f0d2b348ae045675"
 dependencies = [
  "anyhow",
  "chrono",
@@ -3709,7 +3686,6 @@ dependencies = [
 [[package]]
 name = "eth1_api"
 version = "0.0.0"
-source = "git+https://github.com/AlexShukel/grandine?branch=feature/embed-grandine-into-reth#e00b90cca08179baf781ffb7f0d2b348ae045675"
 dependencies = [
  "anyhow",
  "bls",
@@ -3746,7 +3722,6 @@ dependencies = [
 [[package]]
 name = "eth2_libp2p"
 version = "0.2.0"
-source = "git+https://github.com/AlexShukel/grandine?branch=feature/embed-grandine-into-reth#e00b90cca08179baf781ffb7f0d2b348ae045675"
 dependencies = [
  "anyhow",
  "async-channel",
@@ -4230,7 +4205,6 @@ dependencies = [
 [[package]]
 name = "execution_engine"
 version = "0.0.0"
-source = "git+https://github.com/AlexShukel/grandine?branch=feature/embed-grandine-into-reth#e00b90cca08179baf781ffb7f0d2b348ae045675"
 dependencies = [
  "anyhow",
  "either",
@@ -4256,7 +4230,6 @@ dependencies = [
 [[package]]
 name = "factory"
 version = "0.0.0"
-source = "git+https://github.com/AlexShukel/grandine?branch=feature/embed-grandine-into-reth#e00b90cca08179baf781ffb7f0d2b348ae045675"
 dependencies = [
  "anyhow",
  "bls",
@@ -4328,7 +4301,6 @@ dependencies = [
 [[package]]
 name = "features"
 version = "0.0.0"
-source = "git+https://github.com/AlexShukel/grandine?branch=feature/embed-grandine-into-reth#e00b90cca08179baf781ffb7f0d2b348ae045675"
 dependencies = [
  "log",
  "parse-display",
@@ -4427,7 +4399,6 @@ checksum = "00b0228411908ca8685dba7fc2cdd70ec9990a6e753e89b6ac91a84c40fbaf4b"
 [[package]]
 name = "fork_choice_control"
 version = "0.0.0"
-source = "git+https://github.com/AlexShukel/grandine?branch=feature/embed-grandine-into-reth#e00b90cca08179baf781ffb7f0d2b348ae045675"
 dependencies = [
  "anyhow",
  "arc-swap",
@@ -4473,7 +4444,6 @@ dependencies = [
 [[package]]
 name = "fork_choice_store"
 version = "0.0.0"
-source = "git+https://github.com/AlexShukel/grandine?branch=feature/embed-grandine-into-reth#e00b90cca08179baf781ffb7f0d2b348ae045675"
 dependencies = [
  "anyhow",
  "arithmetic",
@@ -4744,7 +4714,6 @@ dependencies = [
 [[package]]
 name = "genesis"
 version = "0.0.0"
-source = "git+https://github.com/AlexShukel/grandine?branch=feature/embed-grandine-into-reth#e00b90cca08179baf781ffb7f0d2b348ae045675"
 dependencies = [
  "anyhow",
  "arithmetic",
@@ -4892,7 +4861,6 @@ dependencies = [
 [[package]]
 name = "gossipsub"
 version = "0.5.0"
-source = "git+https://github.com/AlexShukel/grandine?branch=feature/embed-grandine-into-reth#e00b90cca08179baf781ffb7f0d2b348ae045675"
 dependencies = [
  "async-channel",
  "asynchronous-codec 0.7.0",
@@ -4921,74 +4889,8 @@ dependencies = [
 ]
 
 [[package]]
-name = "grandine"
-version = "0.0.0"
-source = "git+https://github.com/AlexShukel/grandine?branch=feature/embed-grandine-into-reth#e00b90cca08179baf781ffb7f0d2b348ae045675"
-dependencies = [
- "allocator",
- "anyhow",
- "binary_utils",
- "bls",
- "builder_api",
- "bytesize",
- "clap",
- "database",
- "deposit_tree",
- "derivative",
- "derive_more 1.0.0",
- "directories",
- "doppelganger_protection",
- "eip_2335",
- "enum-iterator",
- "eth1",
- "eth1_api",
- "eth2_libp2p",
- "features",
- "fork_choice_control",
- "fork_choice_store",
- "fs-err",
- "futures",
- "genesis",
- "glob",
- "grandine_version",
- "hex-literal",
- "http_api",
- "itertools 0.13.0",
- "keymanager",
- "log",
- "logging",
- "metrics 0.0.0",
- "p2p",
- "panics",
- "predefined_chains",
- "prometheus_metrics",
- "rayon",
- "reqwest",
- "reth-libmdbx 1.0.6",
- "runtime",
- "serde",
- "serde_json",
- "serde_yaml",
- "signer",
- "slasher",
- "slashing_protection",
- "ssz",
- "std_ext",
- "strum",
- "tap",
- "thiserror 1.0.69",
- "tokio",
- "tower-http",
- "types",
- "validator",
- "validator_key_cache",
- "zeroize",
-]
-
-[[package]]
 name = "grandine_version"
 version = "0.4.1"
-source = "git+https://github.com/AlexShukel/grandine?branch=feature/embed-grandine-into-reth#e00b90cca08179baf781ffb7f0d2b348ae045675"
 dependencies = [
  "const_format",
  "git-version",
@@ -5102,7 +5004,6 @@ dependencies = [
 [[package]]
 name = "hashing"
 version = "0.0.0"
-source = "git+https://github.com/AlexShukel/grandine?branch=feature/embed-grandine-into-reth#e00b90cca08179baf781ffb7f0d2b348ae045675"
 dependencies = [
  "ethereum-types",
  "generic-array",
@@ -5177,7 +5078,6 @@ checksum = "2304e00983f87ffb38b55b444b5e3b60a884b5d30c0fca7d82fe33449bbe55ea"
 [[package]]
 name = "helper_functions"
 version = "0.0.0"
-source = "git+https://github.com/AlexShukel/grandine?branch=feature/embed-grandine-into-reth#e00b90cca08179baf781ffb7f0d2b348ae045675"
 dependencies = [
  "anyhow",
  "arithmetic",
@@ -5465,7 +5365,6 @@ dependencies = [
 [[package]]
 name = "http_api"
 version = "0.0.0"
-source = "git+https://github.com/AlexShukel/grandine?branch=feature/embed-grandine-into-reth#e00b90cca08179baf781ffb7f0d2b348ae045675"
 dependencies = [
  "anyhow",
  "arithmetic",
@@ -5520,7 +5419,6 @@ dependencies = [
 [[package]]
 name = "http_api_utils"
 version = "0.0.0"
-source = "git+https://github.com/AlexShukel/grandine?branch=feature/embed-grandine-into-reth#e00b90cca08179baf781ffb7f0d2b348ae045675"
 dependencies = [
  "anyhow",
  "axum",
@@ -6147,7 +6045,6 @@ dependencies = [
 [[package]]
 name = "interop"
 version = "0.0.0"
-source = "git+https://github.com/AlexShukel/grandine?branch=feature/embed-grandine-into-reth#e00b90cca08179baf781ffb7f0d2b348ae045675"
 dependencies = [
  "anyhow",
  "bls",
@@ -6555,7 +6452,6 @@ dependencies = [
 [[package]]
 name = "keymanager"
 version = "0.1.0"
-source = "git+https://github.com/AlexShukel/grandine?branch=feature/embed-grandine-into-reth#e00b90cca08179baf781ffb7f0d2b348ae045675"
 dependencies = [
  "anyhow",
  "bls",
@@ -6621,7 +6517,7 @@ dependencies = [
 [[package]]
 name = "kzg"
 version = "0.1.0"
-source = "git+https://github.com/grandinetech/rust-kzg.git?branch=integration-raw#5e4383c71e8c6d4266a1b4573e3d2ff4c972fe06"
+source = "git+https://github.com/AlexShukel/rust-kzg.git?branch=feature/embed-grandine-into-reth#32abd0935a3989d8714684c1c2afedb3144b53d2"
 dependencies = [
  "blst",
  "sha2 0.10.8",
@@ -6630,7 +6526,6 @@ dependencies = [
 [[package]]
 name = "kzg_utils"
 version = "0.1.0"
-source = "git+https://github.com/AlexShukel/grandine?branch=feature/embed-grandine-into-reth#e00b90cca08179baf781ffb7f0d2b348ae045675"
 dependencies = [
  "anyhow",
  "kzg",
@@ -7225,7 +7120,6 @@ checksum = "643cb0b8d4fcc284004d5fd0d67ccf61dfffadb7f75e1e71bc420f4688a3a704"
 [[package]]
 name = "liveness_tracker"
 version = "0.0.0"
-source = "git+https://github.com/AlexShukel/grandine?branch=feature/embed-grandine-into-reth#e00b90cca08179baf781ffb7f0d2b348ae045675"
 dependencies = [
  "anyhow",
  "bitvec",
@@ -7261,7 +7155,6 @@ checksum = "a7a70ba024b9dc04c27ea2f0c0548feb474ec5c54bba33a7f72f873a39d07b24"
 [[package]]
 name = "logging"
 version = "0.0.0"
-source = "git+https://github.com/AlexShukel/grandine?branch=feature/embed-grandine-into-reth#e00b90cca08179baf781ffb7f0d2b348ae045675"
 dependencies = [
  "derive_more 1.0.0",
 ]
@@ -7366,7 +7259,6 @@ dependencies = [
 [[package]]
 name = "metrics"
 version = "0.0.0"
-source = "git+https://github.com/AlexShukel/grandine?branch=feature/embed-grandine-into-reth#e00b90cca08179baf781ffb7f0d2b348ae045675"
 dependencies = [
  "anyhow",
  "axum",
@@ -8212,7 +8104,6 @@ dependencies = [
 [[package]]
 name = "operation_pools"
 version = "0.0.0"
-source = "git+https://github.com/AlexShukel/grandine?branch=feature/embed-grandine-into-reth#e00b90cca08179baf781ffb7f0d2b348ae045675"
 dependencies = [
  "anyhow",
  "bit_field",
@@ -8272,7 +8163,6 @@ dependencies = [
 [[package]]
 name = "p2p"
 version = "0.0.0"
-source = "git+https://github.com/AlexShukel/grandine?branch=feature/embed-grandine-into-reth#e00b90cca08179baf781ffb7f0d2b348ae045675"
 dependencies = [
  "anyhow",
  "arithmetic",
@@ -8338,7 +8228,6 @@ dependencies = [
 [[package]]
 name = "panics"
 version = "0.0.0"
-source = "git+https://github.com/AlexShukel/grandine?branch=feature/embed-grandine-into-reth#e00b90cca08179baf781ffb7f0d2b348ae045675"
 dependencies = [
  "anyhow",
  "log",
@@ -8771,7 +8660,6 @@ dependencies = [
 [[package]]
 name = "predefined_chains"
 version = "0.0.0"
-source = "git+https://github.com/AlexShukel/grandine?branch=feature/embed-grandine-into-reth#e00b90cca08179baf781ffb7f0d2b348ae045675"
 dependencies = [
  "genesis",
  "hex-literal",
@@ -9000,7 +8888,6 @@ dependencies = [
 [[package]]
 name = "prometheus_metrics"
 version = "0.1.0"
-source = "git+https://github.com/AlexShukel/grandine?branch=feature/embed-grandine-into-reth#e00b90cca08179baf781ffb7f0d2b348ae045675"
 dependencies = [
  "anyhow",
  "features",
@@ -9584,7 +9471,6 @@ dependencies = [
  "clap",
  "eyre",
  "futures",
- "grandine",
  "reth-basic-payload-builder",
  "reth-beacon-consensus",
  "reth-blockchain-tree",
@@ -9908,19 +9794,27 @@ dependencies = [
  "alloy-eips",
  "alloy-primitives",
  "alloy-rlp",
+ "anyhow",
  "arbitrary",
  "backon",
  "clap",
  "comfy-table",
  "crossterm",
+ "directories",
+ "eth1_api",
  "eyre",
  "fdlimit",
+ "fork_choice_control",
+ "fork_choice_store",
  "futures",
+ "grandine_version",
+ "http_api",
  "human_bytes",
  "itertools 0.13.0",
  "proptest",
  "proptest-arbitrary-interop",
  "ratatui",
+ "reqwest",
  "reth-beacon-consensus",
  "reth-chainspec",
  "reth-cli",
@@ -9958,12 +9852,19 @@ dependencies = [
  "reth-trie",
  "reth-trie-common",
  "reth-trie-db",
+ "runtime",
  "secp256k1 0.29.1",
  "serde",
  "serde_json",
+ "signer",
+ "slasher",
+ "slashing_protection",
+ "thiserror 1.0.69",
  "tokio",
  "toml",
  "tracing",
+ "types",
+ "validator",
 ]
 
 [[package]]
@@ -12917,48 +12818,73 @@ checksum = "48fd7bd8a6377e15ad9d42a8ec25371b94ddc67abe7c8b9127bec79bebaaae18"
 [[package]]
 name = "runtime"
 version = "0.0.0"
-source = "git+https://github.com/AlexShukel/grandine?branch=feature/embed-grandine-into-reth#e00b90cca08179baf781ffb7f0d2b348ae045675"
 dependencies = [
  "anyhow",
  "attestation_verifier",
+ "binary_utils",
  "block_producer",
+ "bls",
  "builder_api",
  "bytesize",
+ "clap",
  "clock",
  "database",
  "dedicated_executor",
+ "deposit_tree",
+ "derivative",
+ "derive_more 1.0.0",
  "directories",
  "doppelganger_protection",
+ "eip_2335",
+ "enum-iterator",
  "eth1",
  "eth1_api",
+ "eth2_libp2p",
+ "features",
  "fork_choice_control",
  "fork_choice_store",
  "fs-err",
  "futures",
  "genesis",
+ "glob",
  "grandine_version",
+ "hex-literal",
  "http_api",
+ "itertools 0.13.0",
  "keymanager",
  "liveness_tracker",
  "log",
+ "logging",
  "metrics 0.0.0",
  "nonzero_ext",
  "num_cpus",
  "operation_pools",
  "p2p",
+ "panics",
+ "predefined_chains",
  "prometheus-client",
  "prometheus_metrics",
+ "rayon",
+ "reqwest",
+ "reth-libmdbx 1.0.6",
  "semver 1.0.23",
  "serde",
  "serde_json",
+ "serde_yaml",
  "signer",
  "slasher",
  "slashing_protection",
+ "ssz",
  "std_ext",
+ "strum",
+ "tap",
  "thiserror 1.0.69",
  "tokio",
+ "tower-http",
  "types",
  "validator",
+ "validator_key_cache",
+ "zeroize",
 ]
 
 [[package]]
@@ -12978,7 +12904,7 @@ dependencies = [
 [[package]]
 name = "rust-kzg-blst"
 version = "0.1.0"
-source = "git+https://github.com/grandinetech/rust-kzg.git?branch=integration-raw#5e4383c71e8c6d4266a1b4573e3d2ff4c972fe06"
+source = "git+https://github.com/AlexShukel/rust-kzg.git?branch=feature/embed-grandine-into-reth#32abd0935a3989d8714684c1c2afedb3144b53d2"
 dependencies = [
  "blst",
  "hex",
@@ -13523,7 +13449,6 @@ dependencies = [
 [[package]]
 name = "serde_utils"
 version = "0.0.0"
-source = "git+https://github.com/AlexShukel/grandine?branch=feature/embed-grandine-into-reth#e00b90cca08179baf781ffb7f0d2b348ae045675"
 dependencies = [
  "generic-array",
  "hex",
@@ -13684,7 +13609,6 @@ checksum = "0fda2ff0d084019ba4d7c6f371c95d8fd75ce3524c3cb8fb653a3023f6323e64"
 [[package]]
 name = "shuffling"
 version = "0.0.0"
-source = "git+https://github.com/AlexShukel/grandine?branch=feature/embed-grandine-into-reth#e00b90cca08179baf781ffb7f0d2b348ae045675"
 dependencies = [
  "anyhow",
  "bit_field",
@@ -13737,7 +13661,6 @@ dependencies = [
 [[package]]
 name = "signer"
 version = "0.0.0"
-source = "git+https://github.com/AlexShukel/grandine?branch=feature/embed-grandine-into-reth#e00b90cca08179baf781ffb7f0d2b348ae045675"
 dependencies = [
  "anyhow",
  "arc-swap",
@@ -13833,7 +13756,6 @@ dependencies = [
 [[package]]
 name = "slasher"
 version = "0.0.0"
-source = "git+https://github.com/AlexShukel/grandine?branch=feature/embed-grandine-into-reth#e00b90cca08179baf781ffb7f0d2b348ae045675"
 dependencies = [
  "anyhow",
  "bincode",
@@ -13856,7 +13778,6 @@ dependencies = [
 [[package]]
 name = "slashing_protection"
 version = "0.0.0"
-source = "git+https://github.com/AlexShukel/grandine?branch=feature/embed-grandine-into-reth#e00b90cca08179baf781ffb7f0d2b348ae045675"
 dependencies = [
  "anyhow",
  "bls",
@@ -14008,7 +13929,6 @@ checksum = "3b9b39299b249ad65f3b7e96443bad61c02ca5cd3589f46cb6d610a0fd6c0d6a"
 [[package]]
 name = "ssz"
 version = "0.0.0"
-source = "git+https://github.com/AlexShukel/grandine?branch=feature/embed-grandine-into-reth#e00b90cca08179baf781ffb7f0d2b348ae045675"
 dependencies = [
  "arithmetic",
  "bit_field",
@@ -14040,7 +13960,6 @@ dependencies = [
 [[package]]
 name = "ssz_derive"
 version = "0.0.0"
-source = "git+https://github.com/AlexShukel/grandine?branch=feature/embed-grandine-into-reth#e00b90cca08179baf781ffb7f0d2b348ae045675"
 dependencies = [
  "darling",
  "easy-ext",
@@ -14060,7 +13979,6 @@ checksum = "a8f112729512f8e442d81f95a8a7ddf2b7c6b8a1a6f509a95864142b30cab2d3"
 [[package]]
 name = "state_cache"
 version = "0.1.0"
-source = "git+https://github.com/AlexShukel/grandine?branch=feature/embed-grandine-into-reth#e00b90cca08179baf781ffb7f0d2b348ae045675"
 dependencies = [
  "anyhow",
  "im",
@@ -14081,7 +13999,6 @@ checksum = "a2eb9349b6444b326872e140eb1cf5e7c522154d69e7a0ffb0fb81c06b37543f"
 [[package]]
 name = "std_ext"
 version = "0.0.0"
-source = "git+https://github.com/AlexShukel/grandine?branch=feature/embed-grandine-into-reth#e00b90cca08179baf781ffb7f0d2b348ae045675"
 dependencies = [
  "easy-ext",
  "triomphe",
@@ -14927,7 +14844,6 @@ dependencies = [
 [[package]]
 name = "transition_functions"
 version = "0.0.0"
-source = "git+https://github.com/AlexShukel/grandine?branch=feature/embed-grandine-into-reth#e00b90cca08179baf781ffb7f0d2b348ae045675"
 dependencies = [
  "anyhow",
  "arithmetic",
@@ -15030,7 +14946,6 @@ checksum = "e421abadd41a4225275504ea4d6566923418b7f05506fbc9c0fe86ba7396114b"
 [[package]]
 name = "try_from_iterator"
 version = "0.0.0"
-source = "git+https://github.com/AlexShukel/grandine?branch=feature/embed-grandine-into-reth#e00b90cca08179baf781ffb7f0d2b348ae045675"
 
 [[package]]
 name = "tungstenite"
@@ -15070,7 +14985,6 @@ checksum = "42ff0bf0c66b8238c6f3b578df37d0b7848e55df8577b3f74f92a69acceeb825"
 [[package]]
 name = "types"
 version = "0.0.0"
-source = "git+https://github.com/AlexShukel/grandine?branch=feature/embed-grandine-into-reth#e00b90cca08179baf781ffb7f0d2b348ae045675"
 dependencies = [
  "arithmetic",
  "bit_field",
@@ -15317,7 +15231,6 @@ dependencies = [
 [[package]]
 name = "validator"
 version = "0.0.0"
-source = "git+https://github.com/AlexShukel/grandine?branch=feature/embed-grandine-into-reth#e00b90cca08179baf781ffb7f0d2b348ae045675"
 dependencies = [
  "anyhow",
  "axum",
@@ -15372,7 +15285,6 @@ dependencies = [
 [[package]]
 name = "validator_key_cache"
 version = "0.1.0"
-source = "git+https://github.com/AlexShukel/grandine?branch=feature/embed-grandine-into-reth#e00b90cca08179baf781ffb7f0d2b348ae045675"
 dependencies = [
  "anyhow",
  "bls",
