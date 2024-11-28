@@ -255,7 +255,7 @@ impl<
                     ),
                     force_checkpoint_sync: true,
                     back_sync: false,
-                    eth1_rpc_urls: vec![Url::parse("http://0.0.0.0:8783").unwrap()],
+                    eth1_rpc_urls: vec![Url::parse("http://127.0.0.1:8551").unwrap()],
                     data_dir,
                     validators: None,
                     keystore_storage_password_file: None,
