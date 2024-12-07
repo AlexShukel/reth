@@ -2265,6 +2265,16 @@ dependencies = [
 ]
 
 [[package]]
+name = "clap-wrapper"
+version = "0.1.1"
+source = "git+https://github.com/wfraser/clap_wrapper.git#d61a94dcdfb9e47ad71b76ed48ccfaf79e1b3e72"
+dependencies = [
+ "heck 0.4.1",
+ "quote",
+ "syn 2.0.87",
+]
+
+[[package]]
 name = "clap_builder"
 version = "4.5.21"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -9794,27 +9804,19 @@ dependencies = [
  "alloy-eips",
  "alloy-primitives",
  "alloy-rlp",
- "anyhow",
  "arbitrary",
  "backon",
  "clap",
  "comfy-table",
  "crossterm",
- "directories",
- "eth1_api",
  "eyre",
  "fdlimit",
- "fork_choice_control",
- "fork_choice_store",
  "futures",
- "grandine_version",
- "http_api",
  "human_bytes",
  "itertools 0.13.0",
  "proptest",
  "proptest-arbitrary-interop",
  "ratatui",
- "reqwest",
  "reth-beacon-consensus",
  "reth-chainspec",
  "reth-cli",
@@ -9856,15 +9858,9 @@ dependencies = [
  "secp256k1 0.29.1",
  "serde",
  "serde_json",
- "signer",
- "slasher",
- "slashing_protection",
- "thiserror 1.0.69",
  "tokio",
  "toml",
  "tracing",
- "types",
- "validator",
 ]
 
 [[package]]
@@ -12827,6 +12823,7 @@ dependencies = [
  "builder_api",
  "bytesize",
  "clap",
+ "clap-wrapper",
  "clock",
  "database",
  "dedicated_executor",

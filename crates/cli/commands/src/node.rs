@@ -1,23 +1,7 @@
 //! Main node command for launching a node
 
-use anyhow::{ensure, Result};
-use clap::{value_parser, Args, Parser};
-use grandine_directories::Directories;
-use grandine_eth1_api::AuthOptions;
-use grandine_fork_choice_control::DEFAULT_ARCHIVAL_EPOCH_INTERVAL;
-use grandine_fork_choice_store::{StoreConfig, DEFAULT_CACHE_LOCK_TIMEOUT_MILLIS};
-use grandine_grandine_version::APPLICATION_NAME_AND_VERSION;
-use grandine_http_api::HttpApiConfig;
-use grandine_runtime::{
-    run, GrandineConfig, MetricsConfig, PredefinedNetwork, StorageConfig, DEFAULT_ETH1_DB_SIZE,
-    DEFAULT_ETH2_DB_SIZE, DEFAULT_REQUEST_TIMEOUT, GRANDINE_DONATION_ADDRESS,
-};
-use grandine_signer::Web3SignerConfig;
-use grandine_slasher::SlasherConfig;
-use grandine_slashing_protection::DEFAULT_SLASHING_PROTECTION_HISTORY_LIMIT;
-use grandine_types::phase0::primitives::H256;
-use grandine_validator::ValidatorConfig;
-use reqwest::Url;
+use clap::{value_parser, Arg, Args, CommandFactory, FromArgMatches, Parser};
+use grandine_runtime::{run, GrandineArgs, Network};
 use reth_chainspec::{EthChainSpec, EthereumHardforks};
 use reth_cli::chainspec::ChainSpecParser;
 use reth_cli_runner::CliContext;
@@ -33,10 +17,75 @@ use reth_node_core::{
     node_config::NodeConfig,
     version,
 };
-use std::{collections::HashSet, path::PathBuf, sync::Arc, time::Duration};
+use std::{ffi::OsStr, path::PathBuf, sync::Arc};
 use std::{ffi::OsString, fmt, future::Future, net::SocketAddr};
-use thiserror::Error;
 use tokio::task::spawn_blocking;
+
+#[derive(Debug, Clone)]
+pub struct RethGrandineArgs(GrandineArgs);
+
+impl FromArgMatches for RethGrandineArgs {
+    fn from_arg_matches(matches: &clap::ArgMatches) -> std::result::Result<Self, clap::Error> {
+        GrandineArgs::from_arg_matches(matches).map(RethGrandineArgs)
+    }
+
+    fn update_from_arg_matches(
+        &mut self,
+        matches: &clap::ArgMatches,
+    ) -> std::result::Result<(), clap::Error> {
+        self.0.update_from_arg_matches(matches)
+    }
+}
+
+impl Args for RethGrandineArgs {
+    fn augment_args(cmd: clap::Command) -> clap::Command {
+        Self::augment_args_for_update(cmd)
+    }
+
+    fn augment_args_for_update(mut cmd: clap::Command) -> clap::Command {
+        let command = GrandineArgs::command();
+
+        for arg in command.get_arguments() {
+            if arg.get_id() == "network" {
+                continue;
+            }
+
+            let id: &'static str = Box::leak(format!("grandine.{}", arg.get_id()).into_boxed_str());
+
+            let mut new_arg = Arg::new(id).action(arg.get_action().clone());
+
+            if let Some(help) = arg.get_help() {
+                new_arg = new_arg.help(help.clone());
+            }
+
+            if let Some(value_names) = arg.get_value_names() {
+                new_arg = new_arg.value_names(value_names);
+            }
+
+            if let Some(value_delimiter) = arg.get_value_delimiter() {
+                new_arg = new_arg.value_delimiter(value_delimiter);
+            }
+
+            if let Some(env) = arg.get_env() {
+                let alias_name: &'static OsStr = Box::leak(env.to_owned().into_boxed_os_str());
+
+                new_arg = new_arg.env(alias_name);
+            }
+
+            if let Some(aliases) = arg.get_long_and_visible_aliases() {
+                for alias in aliases {
+                    let alias_name: &'static str =
+                        Box::leak(format!("grandine.{alias}").into_boxed_str());
+                    new_arg = new_arg.long(alias_name);
+                }
+            }
+
+            cmd = cmd.arg(new_arg);
+        }
+
+        cmd
+    }
+}
 
 /// Start the node
 #[derive(Debug, Parser)]
@@ -92,8 +141,8 @@ pub struct NodeCommand<
     pub with_unused_ports: bool,
 
     /// Runs grandine CL together with reth
-    #[arg(long, global = true)]
-    pub with_embeded_grandine: bool,
+    #[arg(long)]
+    pub grandine: bool,
 
     /// All datadir related arguments
     #[command(flatten)]
@@ -134,6 +183,10 @@ pub struct NodeCommand<
     /// Additional cli arguments
     #[command(flatten, next_help_heading = "Extension")]
     pub ext: Ext,
+
+    /// Grandine cli arguments
+    #[command(flatten, next_help_heading = "Grandine")]
+    pub grandine_args: RethGrandineArgs,
 }
 
 impl<C: ChainSpecParser> NodeCommand<C> {
@@ -152,27 +205,15 @@ impl<C: ChainSpecParser> NodeCommand<C> {
     }
 }
 
-#[derive(Debug, Error)]
-enum Error {
-    #[error("graffiti must be no longer than {} bytes", H256::len_bytes())]
-    GraffitiTooLong,
-}
-
-// TODO: do not duplicate this code, move it to general crate (now is copied from grandine_args.rs)
-fn parse_graffiti(string: &str) -> Result<H256> {
-    ensure!(string.len() <= H256::len_bytes(), Error::GraffitiTooLong);
-
-    let mut graffiti = H256::zero();
-    graffiti[..string.len()].copy_from_slice(string.as_bytes());
-
-    Ok(graffiti)
-}
-
 impl<
         C: ChainSpecParser<ChainSpec: EthChainSpec + EthereumHardforks>,
         Ext: clap::Args + fmt::Debug,
     > NodeCommand<C, Ext>
 {
+    fn map_chain_spec_to_network(chain_spec: Arc<C::ChainSpec>) -> Network {
+        todo!()
+    }
+
     /// Launches the node
     ///
     /// This transforms the node command into a node config and launches the node using the given
@@ -200,7 +241,8 @@ impl<
             dev,
             pruning,
             ext,
-            with_embeded_grandine,
+            grandine,
+            mut grandine_args,
         } = self;
 
         // set up node config
@@ -230,84 +272,14 @@ impl<
             node_config = node_config.with_unused_ports();
         }
 
-        if with_embeded_grandine {
+        if grandine {
             spawn_blocking(|| {
-                let chain_config = PredefinedNetwork::Holesky.chain_config();
+                grandine_args.0.chain_options.network =
+                    Self::map_chain_spec_to_network(node_config.chain);
 
-                let dirs = Arc::new(Directories::default().set_defaults(&chain_config));
+                let grandine_config = grandine_args.0.try_into_config().unwrap();
 
-                let Ok(graffiti) = parse_graffiti(APPLICATION_NAME_AND_VERSION) else {
-                    return;
-                };
-
-                let Some(data_dir) = dirs.data_dir.clone() else {
-                    return;
-                };
-
-                let config = GrandineConfig {
-                    predefined_network: Some(PredefinedNetwork::Holesky),
-                    chain_config: Arc::new(chain_config),
-                    deposit_contract_starting_block: None,
-                    genesis_state_file: None,
-                    genesis_state_download_url: None,
-                    checkpoint_sync_url: Some(
-                        Url::parse("https://holesky-checkpoint-sync.stakely.io/").unwrap(),
-                    ),
-                    force_checkpoint_sync: true,
-                    back_sync: false,
-                    eth1_rpc_urls: vec![Url::parse("http://0.0.0.0:8783").unwrap()],
-                    data_dir,
-                    validators: None,
-                    keystore_storage_password_file: None,
-                    graffiti: vec![graffiti],
-                    max_empty_slots: ValidatorConfig::default().max_empty_slots,
-                    suggested_fee_recipient: GRANDINE_DONATION_ADDRESS,
-                    network_config: PredefinedNetwork::Holesky.network_config(),
-                    storage_config: StorageConfig {
-                        in_memory: false,
-                        db_size: DEFAULT_ETH2_DB_SIZE,
-                        eth1_db_size: DEFAULT_ETH1_DB_SIZE,
-                        directories: dirs.clone(),
-                        archival_epoch_interval: DEFAULT_ARCHIVAL_EPOCH_INTERVAL,
-                        prune_storage: false,
-                    },
-                    unfinalized_states_in_memory: StoreConfig::default()
-                        .unfinalized_states_in_memory,
-                    request_timeout: Duration::from_millis(DEFAULT_REQUEST_TIMEOUT),
-                    state_cache_lock_timeout: Duration::from_millis(
-                        DEFAULT_CACHE_LOCK_TIMEOUT_MILLIS,
-                    ),
-                    command: None,
-                    slashing_enabled: false,
-                    slashing_history_limit: SlasherConfig::default().slashing_history_limit,
-                    features: Vec::new(),
-                    state_slot: None,
-                    auth_options: AuthOptions {
-                        secrets_path: Some(PathBuf::from("/jwtsecret")),
-                        id: None,
-                        version: None,
-                    },
-                    builder_config: None,
-                    web3signer_config: Web3SignerConfig {
-                        allow_to_reload_keys: false,
-                        urls: Vec::new(),
-                        public_keys: HashSet::new(),
-                    },
-                    http_api_config: HttpApiConfig::default(),
-                    metrics_config: MetricsConfig {
-                        metrics: None,
-                        metrics_server_config: None,
-                        metrics_service_config: None,
-                    },
-                    track_liveness: false,
-                    detect_doppelgangers: false,
-                    use_validator_key_cache: false,
-                    slashing_protection_history_limit: DEFAULT_SLASHING_PROTECTION_HISTORY_LIMIT,
-                    in_memory: false,
-                    validator_api_config: None,
-                };
-
-                run(config).unwrap();
+                run(grandine_config).unwrap();
             });
         }
 
