@@ -2265,16 +2265,6 @@ dependencies = [
 ]
 
 [[package]]
-name = "clap-wrapper"
-version = "0.1.1"
-source = "git+https://github.com/wfraser/clap_wrapper.git#d61a94dcdfb9e47ad71b76ed48ccfaf79e1b3e72"
-dependencies = [
- "heck 0.4.1",
- "quote",
- "syn 2.0.87",
-]
-
-[[package]]
 name = "clap_builder"
 version = "4.5.21"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -12823,7 +12813,6 @@ dependencies = [
  "builder_api",
  "bytesize",
  "clap",
- "clap-wrapper",
  "clock",
  "database",
  "dedicated_executor",
