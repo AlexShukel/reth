@@ -297,7 +297,11 @@ overflow-checks = true
 
 [workspace.dependencies]
 # grandine
-grandine-runtime = { path = "../grandine/runtime", package = "runtime", features = [
+grandine-runtime = { git = "https://github.com/AlexShukel/grandine.git", branch = "feature/embed-grandine-in-reth", package = "runtime", features = [
+    "network-goerli",
+    "network-mainnet",
+    "network-sepolia",
+    "network-shadow",
     "network-holesky",
 ] }
 

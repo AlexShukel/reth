@@ -1,8 +1,8 @@
 //! Main node command for launching a node
 
 use clap::{value_parser, Arg, Args, CommandFactory, FromArgMatches, Parser};
-use grandine_runtime::{run, GrandineArgs, Network};
-use reth_chainspec::{EthChainSpec, EthereumHardforks};
+use grandine_runtime::{run, GrandineArgs};
+use reth_chainspec::{ChainKind, EthChainSpec, EthereumHardforks, NamedChain};
 use reth_cli::chainspec::ChainSpecParser;
 use reth_cli_runner::CliContext;
 use reth_cli_util::parse_socket_address;
@@ -26,7 +26,70 @@ pub struct RethGrandineArgs(GrandineArgs);
 
 impl FromArgMatches for RethGrandineArgs {
     fn from_arg_matches(matches: &clap::ArgMatches) -> std::result::Result<Self, clap::Error> {
-        GrandineArgs::from_arg_matches(matches).map(RethGrandineArgs)
+        let mut args = vec!["".to_string()];
+
+        let command = GrandineArgs::command();
+        // let cmd_args = command
+        //     .get_arguments()
+        //     .map(|v| (v.get_id().clone(), v.clone()))
+        //     .collect::<HashMap<_, _>>();
+
+        for id in matches.ids() {
+            if id.as_str().starts_with("grandine.") {
+                // let old_id: String = id.as_str().chars().skip(9).collect();
+                // let old_flag = format!("--{old_id}");
+
+                // let Some(arg) = cmd_args.get(old_id.as_str()) else {
+                //     continue;
+                // };
+
+                // match arg.get_action() {
+                //     clap::ArgAction::SetTrue => {
+                //         if matches.get_flag(id) {
+                //             args.push(old_flag);
+                //         }
+                //     },
+                //     clap::ArgAction::SetFalse => {
+                //         if !matches.get_flag(id) {
+                //             args.push(old_flag);
+                //         }
+                //     },
+                //     _ => {}
+                // }
+
+                if let Some(occurences) = matches.get_raw_occurrences(id.as_str()) {
+                    let vec_occurences = occurences.collect::<Vec<_>>();
+
+                    // Skip the option if the only occurence value is "false"
+                    if vec_occurences.len() == 1 {
+                        if let Some(first_occurence) = vec_occurences.get(0) {
+                            let vec_first_occurence = first_occurence.clone().collect::<Vec<_>>();
+                            if let Some(value) = vec_first_occurence.get(0) {
+                                if value.to_string_lossy().to_string() == "false" {
+                                    continue;
+                                }
+                            }
+                        }
+                    }
+
+                    let new_id = format!("--{}", id.as_str().chars().skip(9).collect::<String>());
+                    args.push(new_id.replace('_', "-"));
+
+                    for occurence in vec_occurences {
+                        for value in occurence {
+                            let arg_value = value.to_string_lossy().to_string();
+                            if arg_value != "true" {
+                                args.push(arg_value);
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        println!("me: {:?}", args);
+
+        GrandineArgs::from_arg_matches(&command.get_matches_from(args)).map(RethGrandineArgs)
     }
 
     fn update_from_arg_matches(
@@ -210,10 +273,6 @@ impl<
         Ext: clap::Args + fmt::Debug,
     > NodeCommand<C, Ext>
 {
-    fn map_chain_spec_to_network(chain_spec: Arc<C::ChainSpec>) -> Network {
-        todo!()
-    }
-
     /// Launches the node
     ///
     /// This transforms the node command into a node config and launches the node using the given
@@ -273,12 +332,24 @@ impl<
         }
 
         if grandine {
-            spawn_blocking(|| {
-                grandine_args.0.chain_options.network =
-                    Self::map_chain_spec_to_network(node_config.chain);
+            let converted_network = match node_config.chain.chain().kind() {
+                ChainKind::Named(v) => match v {
+                    NamedChain::Mainnet => grandine_runtime::Network::Mainnet,
+                    NamedChain::Goerli => grandine_runtime::Network::Goerli,
+                    NamedChain::Sepolia => grandine_runtime::Network::Sepolia,
+                    NamedChain::Holesky => grandine_runtime::Network::Holesky,
+                    _ => eyre::bail!(format!("Chain {} is not supported in grandine", v)),
+                },
+                ChainKind::Id(id) => {
+                    eyre::bail!(format!("Chain id {} is not supported in grandine", id))
+                }
+            };
 
-                let grandine_config = grandine_args.0.try_into_config().unwrap();
+            grandine_args.0.chain_options.network = converted_network;
+            let grandine_config =
+                grandine_args.0.try_into_config().or_else(|e| eyre::bail!("{}", e))?;
 
+            spawn_blocking(move || {
                 run(grandine_config).unwrap();
             });
         }
