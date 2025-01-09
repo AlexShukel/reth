@@ -9822,7 +9822,6 @@ dependencies = [
  "eyre",
  "reth-cli-runner",
  "reth-db",
- "runtime",
  "serde_json",
  "shellexpand",
 ]

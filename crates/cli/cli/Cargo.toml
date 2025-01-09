@@ -12,8 +12,6 @@ workspace = true
 
 
 [dependencies]
-grandine-runtime = { workspace = true }
-
 # reth
 reth-cli-runner.workspace = true
 reth-db.workspace = true
